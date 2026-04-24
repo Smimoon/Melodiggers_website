@@ -2,6 +2,8 @@
 
 namespace managers;
 
+use PDO;
+
 abstract class AbstractManager
 {
     protected PDO $db;

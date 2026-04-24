@@ -10,6 +10,11 @@
     <option name="highlightLevel" value="WARNING" />
     <option name="transferred" value="true" />
   </component>
+  <component name="PhpCodeSniffer">
+    <phpcs_settings>
+      <phpcs_by_interpreter asDefaultInterpreter="true" interpreter_id="3ec55262-7b0b-4330-829b-c13d77558cf2" timeout="30000" />
+    </phpcs_settings>
+  </component>
   <component name="PhpIncludePathManager">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/vlucas/phpdotenv" />
@@ -19,9 +24,21 @@
       <path value="$PROJECT_DIR$/vendor/graham-campbell/result-type" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
       <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/Melodiggers/vendor/vlucas/phpdotenv" />
+      <path value="$PROJECT_DIR$/Melodiggers/vendor/phpoption/phpoption" />
+      <path value="$PROJECT_DIR$/Melodiggers/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/Melodiggers/vendor/graham-campbell/result-type" />
+      <path value="$PROJECT_DIR$/Melodiggers/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/Melodiggers/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/Melodiggers/vendor/composer" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.5" />
+  <component name="PhpStan">
+    <PhpStan_settings>
+      <phpstan_by_interpreter asDefaultInterpreter="true" interpreter_id="3ec55262-7b0b-4330-829b-c13d77558cf2" timeout="60000" />
+    </PhpStan_settings>
+  </component>
   <component name="PhpStanOptionsConfiguration">
     <option name="transferred" value="true" />
   </component>
@@ -29,6 +46,11 @@
     <phpunit_settings>
       <PhpUnitSettings custom_loader_path="$PROJECT_DIR$/vendor/autoload.php" />
     </phpunit_settings>
+  </component>
+  <component name="Psalm">
+    <Psalm_settings>
+      <psalm_fixer_by_interpreter asDefaultInterpreter="true" interpreter_id="3ec55262-7b0b-4330-829b-c13d77558cf2" timeout="60000" />
+    </Psalm_settings>
   </component>
   <component name="PsalmOptionsConfiguration">
     <option name="transferred" value="true" />
