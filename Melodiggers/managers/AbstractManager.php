@@ -16,4 +16,5 @@ abstract class AbstractManager
             $_ENV["DB_USER"]
         );
     }
+
 }

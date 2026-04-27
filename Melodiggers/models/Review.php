@@ -2,9 +2,11 @@
 
 namespace models;
 
+use DateTime;
+
 class Review
 {
-    public function __construct(private int $userId, private int $albumId, private string $title, private string $content, private ?int $id = null)
+    public function __construct(private int $userId, private int $albumId, private string $title, private string $content, private DateTime $created_at = new DateTime(), private ?int $id = null)
     {
 
     }
@@ -48,7 +50,14 @@ class Review
     {
         $this->content = $content;
     }
-
+    public function getCreatedAt(): DateTime
+    {
+        return $this->created_at;
+    }
+    public function setCreatedAt(DateTime $createdAt): void
+    {
+        $this->created_at = $createdAt;
+    }
     public function getId(): ?int
     {
         return $this->id;
