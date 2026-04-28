@@ -6,29 +6,29 @@ use DateTime;
 
 class Review
 {
-    public function __construct(private int $userId, private int $albumId, private string $title, private string $content, private DateTime $created_at = new DateTime(), private ?int $id = null)
+    public function __construct(private User $user, private Album $album, private string $title, private string $content, private DateTime $created_at = new DateTime(), private ?int $id = null)
     {
 
     }
 
-    public function getUserId(): int
+    public function getUser(): User
     {
-        return $this->userId;
+        return $this->user;
     }
 
-    public function setUserId(int $userId): void
+    public function setUser(User $user): void
     {
-        $this->userId = $userId;
+        $this->user = $user;
     }
 
-    public function getAlbumId(): int
+    public function getAlbum(): Album
     {
-        return $this->albumId;
+        return $this->album;
     }
 
-    public function setAlbumId(int $albumId): void
+    public function setAlbum(Album $album): void
     {
-        $this->albumId = $albumId;
+        $this->album = $album;
     }
 
     public function getTitle(): string

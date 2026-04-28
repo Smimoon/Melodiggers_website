@@ -4,7 +4,7 @@ namespace models;
 
 class Score
 {
-    private function __construct(private int $globalScore, private int $fanScore, private int $albumId, private ?int $id = null )
+    public function __construct(private Album $album, private int $globalScore, private int $fanScore, private ?int $id = null )
     {
 
     }
@@ -29,14 +29,14 @@ class Score
         $this->fanScore = $fanScore;
     }
 
-    public function getAlbumId(): int
+public function getAlbum(): Album
     {
-        return $this->albumId;
+        return $this->album;
     }
 
-    public function setAlbumId(int $albumId): void
+    public function setAlbumId(Album $album): void
     {
-        $this->albumId = $albumId;
+        $this->album = $album;
     }
 
     public function getId(): ?int
