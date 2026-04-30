@@ -14,6 +14,32 @@ class ScoreManager extends AbstractManager
         parent::__construct();
     }
 
+    public function createScore(Score $score) : bool
+    {
+        $query = $this->db->prepare("INSERT INTO scores (id,album, global_score, fan_score) VALUES (NULL,:album, :global_score, :fan_score)");
+        $parameters = [
+          'album'=>$score->getAlbum()->getId(),
+          'global_score'=>$score->getGlobalScore(),
+          'fan_score'=>$score->getFanScore()
+        ];
+        $query->execute($parameters);
+        if($this->db->lastInsertId()){
+            return true;
+        }
+        return false;
+    }
+
+    public function updateScore(Score $score) : bool
+    {
+        $query = $this->db->prepare('UPDATE scores SET global_score = :global_score, fan_score = :fan_score WHERE id = :id');
+        $parameters = [
+            'global_score'=>$score->getGlobalScore(),
+            'fan_score'=>$score->getFanScore(),
+            'id'=>$score->getId()
+        ];
+        $query->execute($parameters);
+        return true;
+    }
     public function findOne(int $id): ?Score
     {
         $query = $this->db->prepare("SELECT * FROM scores WHERE id = :id");

@@ -25,6 +25,7 @@
                 else if ($get['route'] === 'album-details' && $get['album_id']) {
 //                    TODO appel methode showAlbum du PageController
                 }
+
 //              Router Inscription/Connexion
                 else if ($get['route'] === 'user-registration') {
 //                    TODO appel methode register du UserController
@@ -37,6 +38,14 @@
                 }
                 else if ($get['route'] === 'checkLogin'){
 //                    TODO appel méthode checkLogin du UserController
+                }
+
+//              Router Admin users
+                else if ($get['route'] === 'user-list') {
+//                    TODO appel methode list du UserController
+                }
+                else if ($get['route'] === 'showUser' && isset($get['user_id'])) {
+//                    TODO appel methode show du UserController
                 }
 
             }

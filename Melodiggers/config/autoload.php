@@ -15,3 +15,5 @@
     require "managers/UserManager.php";
     require "managers/ScoreManager.php";
 
+    require "controllers/AbstractController.php";
+    require "controllers/UserController.php";
