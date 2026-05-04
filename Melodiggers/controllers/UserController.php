@@ -44,7 +44,7 @@ class UserController extends AbstractController
                 $hashPassword = password_hash($password, PASSWORD_BCRYPT);
                 $user = new User($username, $email, $hashPassword, $bio, $badges);
                 $this->um->createUser($user);
-                $this->redirect('admin/user/showUser');
+                $this->redirect("index.php?route=showUser&user_id=" . $user->getId());
             }
             else{
                 $_SESSION["error"] = "Champs manquants";
@@ -68,12 +68,56 @@ class UserController extends AbstractController
         if(isset($_POST['password'], $_POST['checkPassword'])){
             $password = $_POST['password'];
             $checkPassword = $_POST['checkPassword'];
-            if($password === $checkPassword){
-                $user = $this -> um -> findone($id);
-                if($user!= NULL){
-                    $hashPassword = password_hash($password, PASSWORD_BCRYPT);
+            $regexPassword = '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/';
+            if(!empty(trim($password) && !empty(trim($checkPassword)))){
+                if($password === $checkPassword && preg_match($regexPassword, $password)){
+                    $user = $this -> um -> findone($id);
+                    if($user!= NULL){
+                        $hashPassword = password_hash($password, PASSWORD_BCRYPT);
+                        $user->setPassword($hashPassword);
+                        unset($_SESSION["error"]);
+                        $this->redirect("index.php?route=showUser&user_id=" . $user->getId());
+                    }
+                    else{
+                        $_SESSION["error"] = "Utilisateur introuvable";
+                        $this -> redirect("index.php?route=updateUser&user_id=" . $id);
+                    }
+                }
+                else{
+                    $_SESSION["error"] = "Les mots de passe ne correspondent pas";
+                    $this -> redirect("index.php?route=updateUser&user_id=" . $id);
                 }
             }
+            else{
+                $_SESSION["error"] = "Champs manquants";
+                $this -> redirect("index.php?route=updateUser&user_id=" . $id);
+            }
+        }
+        else if(isset($_POST['username'], $_POST['email'])){
+            $username = $_POST['username'];
+            $email = $_POST['email'];
+            $bio = $_POST['bio'];
+            $badges = $_POST['badges'];
+            $regexEmail = '/^[A-Za-z0-9._%+-]+@[A-Za-z0-9._%+-]+\.[A-Za-z]{2,}$/';
+            if(preg_match($regexEmail, $email)){
+                if (!empty(trim($username)) && !empty(trim($email))){
+                    $user = $this->um->findone($id);
+                    $newUser = new User($username, $email, $user->getPassword(), $bio, $badges);
+                    $newUser->setId($id);
+                    $this->um->updateUser($newUser);
+                    unset($_SESSION["error"]);
+                    $this->redirect("index.php?route=showUser&user_id=" . $newUser->getId());
+                }
+                else{
+                    $_SESSION["error"] = "Champs manquants";
+                }
+            }
+            else{
+                $_SESSION["error"] = "Adresse email invalide";
+            }
+        }
+        else{
+            $_SESSION["error"] = "Champs manquants";
         }
     }
     public function delete(int $id) : void
