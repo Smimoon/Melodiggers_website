@@ -48,19 +48,19 @@ class UserController extends AbstractController
             }
             else{
                 $_SESSION["error"] = "Champs manquants";
-                $this -> renderAdmin("_admin/user/createUser", $_SESSION["error"]);
+                $this -> renderAdmin("user/createUser", $_SESSION["error"]);
             }
         }
         else{
             $_SESSION["error"] = "Champs manquants";
-            $this -> renderAdmin("_admin/user/createUser", $_SESSION["error"]);
+            $this -> renderAdmin("user/createUser", $_SESSION["error"]);
         }
     }
 
     public function update(int $id) : void
     {
         $user = $this -> um -> findone($id);
-        $this -> renderAdmin("_admin/user/updateUser", ["user" => $user]);
+        $this -> renderAdmin("user/updateUser", ["user" => $user]);
     }
 
     public function checkUpdate(int $id) : void
