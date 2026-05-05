@@ -6,7 +6,7 @@ use DateTime;
 
 class Artist
 {
-    public function __construct(private string $name, private string $genre, private DateTime $created_at = new DateTime(), private ?string $bio, private ?int $id=null)
+    public function __construct(private string $name, private string $genre, private ?string $bio, private DateTime $created_at = new DateTime(), private ?int $id=null)
     {
 
     }

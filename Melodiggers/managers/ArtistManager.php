@@ -15,12 +15,12 @@ class ArtistManager extends AbstractManager
 
     public function createArtist(Artist $artist): bool
     {
-        $query = $this->db->prepare("INSERT INTO artists (id, name, genre, created_at, bio) VALUES (NULL, :name, :genre, :created_at, :bio)");
+        $query = $this->db->prepare("INSERT INTO artists (id, name, genre, bio, created_at) VALUES (NULL, :name, :genre, :bio, :created_at)");
         $parameters = [
             ':name' => $artist->getName(),
             ':genre' => $artist->getGenre(),
-            ':created_at' => $artist->getCreatedAt(),
-            ':bio' => $artist->getBio()
+            ':bio' => $artist->getBio(),
+            ':created_at' => $artist->getCreatedAt()
         ];
         $query->execute($parameters);
         if ($this->db->lastInsertId()) {
@@ -38,7 +38,7 @@ class ArtistManager extends AbstractManager
         $query->execute($parameters);
         $result = $query->fetch(PDO::FETCH_ASSOC);
         if ($result) {
-            $artist = new Artist($result['name'], $result['genre'], $result['created_at'], $result['bio'], $result['id']);
+            $artist = new Artist($result['name'], $result['genre'],  $result['bio'], $result['created_at'], $result['id']);
             return $artist;
         }
         return null;
@@ -51,7 +51,7 @@ class ArtistManager extends AbstractManager
         $results = $query->fetchAll(PDO::FETCH_ASSOC);
         $artists = [];
         foreach ($results as $result) {
-            $artist = new Artist($result['name'], $result['genre'], $result['created_at'], $result['bio'], $result['id']);
+            $artist = new Artist($result['name'], $result['genre'], $result['bio'], $result['created_at'], $result['id']);
             $artists[] = $artist;
         }
         return $artists;
@@ -59,12 +59,12 @@ class ArtistManager extends AbstractManager
 
     public function updateArtist(Artist $artist): bool
     {
-        $query = $this->db->prepare("UPDATE artists SET name = :name, genre = :genre, created_at = :created_at, bio = :bio WHERE id = :id");
+        $query = $this->db->prepare("UPDATE artists SET name = :name, genre = :genre, bio = :bio, created_at = :created_at WHERE id = :id");
         $parameters = [
             ':name' => $artist->getName(),
             ':genre' => $artist->getGenre(),
-            ':created_at' => $artist->getCreatedAt(),
             ':bio' => $artist->getBio(),
+            ':created_at' => $artist->getCreatedAt(),
             ':id' => $artist->getId()
         ];
         $query->execute($parameters);

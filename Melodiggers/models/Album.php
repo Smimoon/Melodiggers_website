@@ -4,7 +4,7 @@ namespace models;
 
 class Album
 {
-    public function __construct(private string $name, private string $genre, private DateTime $releaseDate = new DateTime(), private string $trackList, private ?int $id = null)
+    public function __construct(private string $name, private string $genre, private string $trackList, private DateTime $releaseDate = new DateTime(), private ?int $id = null)
     {
 
     }

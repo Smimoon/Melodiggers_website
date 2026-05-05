@@ -15,12 +15,12 @@ class AlbumManager extends AbstractManager
 
     public function createAlbum(Album $album) : bool
     {
-        $query = $this->db->prepare("INSERT INTO albums (id, name, genre, release_date, tracklist) VALUES (NULL, :name, :genre, :release_date, :tracklist)");
+        $query = $this->db->prepare("INSERT INTO albums (id, name, genre, tracklist, release_date,) VALUES (NULL, :name, :genre, :tracklist, :release_date)");
         $parameters = [
             "name" => $album->getName(),
             "genre" => $album->getGenre(),
-            "release_date" => $album->getReleaseDate(),
-            "tracklist" => $album->getTrackList()
+            "tracklist" => $album->getTrackList(),
+            "release_date" => $album->getReleaseDate()
         ];
         $query->execute($parameters);
         if ($this->db->lastInsertId()) {
@@ -38,7 +38,7 @@ class AlbumManager extends AbstractManager
         $query->execute($parameters);
         $result = $query->fetch(PDO::FETCH_ASSOC);
         if ($result) {
-            $album = new Album($result['name'], $result['genre'], $result['release_date'], $result['tracklist'], $result['id']);
+            $album = new Album($result['name'], $result['genre'], $result['tracklist'], $result['release_date'], $result['id']);
             return $album;
         }
         return null;
@@ -51,7 +51,7 @@ class AlbumManager extends AbstractManager
         $results = $query->fetchAll(PDO::FETCH_ASSOC);
         $albums = [];
         foreach ($results as $result) {
-            $album= new Album($result['name'], $result['genre'], $result['release_date'], $result['tracklist'], $result['id']);
+            $album= new Album($result['name'], $result['genre'], $result['tracklist'], $result['release_date'], $result['id']);
             $albums[] = $album;
         }
         return $albums;
@@ -59,12 +59,12 @@ class AlbumManager extends AbstractManager
 
     public function updateAlbum(Album $album) : bool
     {
-        $query = $this->db->prepare("UPDATE albums SET name = :name, genre = :genre, release_date = :release_date, tracklist = :tracklist WHERE id = :id");
+        $query = $this->db->prepare("UPDATE albums SET name = :name, genre = :genre, tracklist = :tracklist, release_date = :release_date  WHERE id = :id");
         $parameters = [
             "name" => $album->getName(),
             "genre" => $album->getGenre(),
-            "release_date" => $album->getReleaseDate(),
             "tracklist" => $album->getTrackList(),
+            "release_date" => $album->getReleaseDate(),
             "id" => $album->getId()
         ];
         $query->execute($parameters);

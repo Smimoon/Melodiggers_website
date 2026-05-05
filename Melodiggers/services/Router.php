@@ -1,5 +1,6 @@
 <?php
 
+use controllers\AlbumController;
 use controllers\UserController;
 
 class Router
@@ -7,7 +8,7 @@ class Router
         public function __construct()
         {
             $this->uc = new UserController();
-
+            $this->alc = new AlbumController();
 
 
         }
@@ -47,13 +48,44 @@ class Router
                 }
 
 //              Router Admin users
-                else if ($get['route'] === 'user-list') {
-//                    TODO appel methode list du UserController
+                else if ($get['route'] === 'userList') {
+                    $this->uc->list();
                 }
                 else if ($get['route'] === 'showUser' && isset($get['user_id'])) {
-//                    TODO appel methode show du UserController
+                    $this->uc->show($get['user_id']);
+                }
+                else if ($get['route'] === 'createUser') {
+                    $this->uc->create();
+                }
+                else if ($get['route'] === 'checkCreateUser') {
+                    $this->uc->checkCreate();
+                }
+                else if ($get['route'] === 'updateUser' && isset($get['user_id'])) {
+                    $this->uc->update($get['user_id']);
+                }
+                else if($get['route'] === 'checkUpdateUser' && isset($get['user_id'])) {
+                    $this->uc->checkUpdate($get['user_id']);
+                }
+                else if ($get['route'] === 'deleteUser' && isset($get['user_id'])) {
+                    $this->uc->delete($get['user_id']);
                 }
 
+//                Router Admin Album
+                else if ($get['route'] === 'albumList') {
+                    $this->alc->list();
+                }
+                else if ($get['route'] === 'albumDetails' && $get['album_id']) {
+                    $this->alc->show($get['album_id']);
+                }
+                else if ($get['route'] === 'createAlbum') {
+                    $this->alc->create();
+                }
+                else if ($get['route'] === 'updateAlbum' && isset($get['album_id'])) {
+                    $this->alc->update($get['album_id']);
+                }
+                else if ($get['route'] === 'deleteAlbum' && isset($get['album_id'])) {
+                    $this->alc->delete($get['album_id']);
+                }
             }
         }
     }

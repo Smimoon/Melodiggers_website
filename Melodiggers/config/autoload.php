@@ -17,3 +17,8 @@
 
     require "controllers/AbstractController.php";
     require "controllers/UserController.php";
+    require "controllers/AlbumController.php";
+    require "controllers/ArtistController.php";
+    require "controllers/MediaController.php";
+    require "controllers/ReviewController.php";
+    require "controllers/ScoreController.php";

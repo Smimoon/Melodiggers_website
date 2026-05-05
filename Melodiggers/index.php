@@ -3,5 +3,5 @@
     require "config/autoload.php";
     session_start();
     $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-//    phpinfo();
-//    die;
+    $router = New Router();
+    $router->handleRequest($_GET);

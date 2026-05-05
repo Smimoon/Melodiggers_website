@@ -39,7 +39,7 @@ class AlbumController extends AbstractController
             $trackList = $_POST['trackList'];
 
             if(!empty(trim($name)) && !empty(trim($genre)) && !empty(trim($releaseDate)) && !empty(trim($trackList))) {
-                $album = new Album($name, $genre, DateTime::createFromFormat('d/m/Y', $releaseDate), $trackList);
+                $album = new Album($name, $genre, $trackList, DateTime::createFromFormat('d/m/Y', $releaseDate));
                 $this->am->createAlbum($album);
                 $this->redirect("index.php?route=showAlbum&album_id=" . $album->getId());
             }
@@ -69,7 +69,7 @@ class AlbumController extends AbstractController
             $trackList = $_POST['trackList'];
 
             if(!empty(trim($name)) && !empty(trim($genre)) && !empty(trim($releaseDate)) && !empty(trim($trackList))) {
-                $album = New Album($name, $genre, DateTime::createFromFormat('d/m/Y', $releaseDate), $trackList);
+                $album = New Album($name, $genre, $trackList, DateTime::createFromFormat('d/m/Y', $releaseDate) );
                 $album->setId($id);
                 $this->am->updateAlbum($album);
                 unset($_SESSION["error"]);
@@ -84,4 +84,9 @@ class AlbumController extends AbstractController
         }
     }
 
+    public function delete(int $id) : void
+    {
+        $this->am->deleteAlbum($id);
+        $this -> redirect("index.php?route=albumList");
+    }
 }
