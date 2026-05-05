@@ -1,14 +1,28 @@
 <?php
 
 use controllers\AlbumController;
+use controllers\ArtistController;
+use controllers\MediaController;
+use controllers\ReviewController;
+use controllers\ScoreController;
 use controllers\UserController;
 
 class Router
     {
+        private UserController $uc;
+        private AlbumController $alc;
+        private ArtistController $arc;
+        private MediaController $mc;
+        private ReviewController $rc;
+        private ScoreController $sc;
         public function __construct()
         {
             $this->uc = new UserController();
             $this->alc = new AlbumController();
+            $this->arc = new ArtistController();
+            $this->mc = new MediaController();
+            $this->rc = new ReviewController();
+            $this->sc = new ScoreController();
 
 
         }

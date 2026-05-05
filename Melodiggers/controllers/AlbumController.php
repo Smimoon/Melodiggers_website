@@ -8,6 +8,7 @@ use models\Album;
 
 class AlbumController extends AbstractController
 {
+    private AlbumManager $am;
     public function __construct()
     {
         $this-> am = new AlbumManager();
@@ -33,10 +34,10 @@ class AlbumController extends AbstractController
     public function checkCreate() : void
     {
         if(isset($_POST['name'], $_POST['genre'], $_POST['releaseDate'], $_POST['trackList'])) {
-            $name = $_POST['name'];
-            $genre = $_POST['genre'];
-            $releaseDate = $_POST['releaseDate'];
-            $trackList = $_POST['trackList'];
+            $name = htmlspecialchars($_POST['name']);
+            $genre = htmlspecialchars($_POST['genre']);
+            $releaseDate = htmlspecialchars($_POST['releaseDate']);
+            $trackList = htmlspecialchars($_POST['trackList']);
 
             if(!empty(trim($name)) && !empty(trim($genre)) && !empty(trim($releaseDate)) && !empty(trim($trackList))) {
                 $album = new Album($name, $genre, $trackList, DateTime::createFromFormat('d/m/Y', $releaseDate));
@@ -44,7 +45,7 @@ class AlbumController extends AbstractController
                 $this->redirect("index.php?route=showAlbum&album_id=" . $album->getId());
             }
             else{
-                $_SESSION["error"] = "Champs manquants";
+                $_SESSION["error"] = "Champs manquants ou invalides";
                 $this -> renderAdmin("album/createAlbum", $_SESSION["error"]);
             }
         }
@@ -63,10 +64,10 @@ class AlbumController extends AbstractController
     public function checkUpdate(int $id) : void
     {
         if(isset($_POST['name'], $_POST['genre'], $_POST['releaseDate'], $_POST['trackList'])) {
-            $name = $_POST['name'];
-            $genre = $_POST['genre'];
-            $releaseDate = $_POST['releaseDate'];
-            $trackList = $_POST['trackList'];
+            $name = htmlspecialchars($_POST['name']);
+            $genre = htmlspecialchars($_POST['genre']);
+            $releaseDate = htmlspecialchars($_POST['releaseDate']);
+            $trackList = htmlspecialchars($_POST['trackList']);
 
             if(!empty(trim($name)) && !empty(trim($genre)) && !empty(trim($releaseDate)) && !empty(trim($trackList))) {
                 $album = New Album($name, $genre, $trackList, DateTime::createFromFormat('d/m/Y', $releaseDate) );

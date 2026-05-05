@@ -7,6 +7,7 @@ use managers\UserManager;
 
 class UserController extends AbstractController
 {
+    private UserManager $um;
     public function __construct()
     {
         $this-> um = new UserManager();

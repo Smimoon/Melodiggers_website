@@ -3,129 +3,92 @@
 namespace controllers;
 
 use controllers\AbstractController;
-use managers\UserManager;
+use DateTime;
+use managers\ArtistManager;
+use models\Album;
+use models\Artist;
 
 class ArtistController extends AbstractController
 {
+    private ArtistManager $arm;
     public function __construct()
     {
-        $this-> um = new UserManager();
+        $this->arm = New ArtistManager();
     }
 
     public function list() : void
     {
-        $data = $this->um->findAll();
-        $this -> renderAdmin("user/listUser.phtml", $data);
+        $data = $this->arm->findAll();
+        $this -> renderAdmin("artist/listArtist.phtml", $data);
     }
 
     public function show(int $id) : void
     {
-        $data = $this->um->findOne($id);
-        $this -> renderAdmin("user/showUser.phtml", $data);
+        $data = $this->arm->findOne($id);
+        $this -> renderAdmin("artist/showArtist.phtml", $data);
     }
 
     public function create() : void
     {
-        $this->renderAdmin("user/createUser.phtml", []);
+        $this->renderAdmin("artist/createArtist.phtml", []);
     }
 
     public function checkCreate() : void
     {
-        if(isset($_POST['username'], $_POST['email'], $_POST['password'])) {
-            $username = $_POST['username'];
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            $bio = $_POST['bio'];
-            $badges = $_POST['badges'];
-            $regexEmail = '/^[A-Za-z0-9._%+-]+@[A-Za-z0-9._%+-]+\.[A-Za-z]{2,}$/';
-            $regexPassword = '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/';
+        if(isset($_POST['name'], $_POST['genre'], $_POST['createdAt'])) {
+            $name = htmlspecialchars($_POST['name']);
+            $genre = htmlspecialchars($_POST['genre']);
+            $bio = htmlspecialchars($_POST['bio']);
+            $createdAt = htmlspecialchars($_POST['createdAt']);
 
-            if(!preg_match($regexEmail, $email) && !preg_match($regexPassword, $password) && !empty(trim($username) && !empty(trim($password)))) {
-                $hashPassword = password_hash($password, PASSWORD_BCRYPT);
-                $user = new User($username, $email, $hashPassword, $bio, $badges);
-                $this->um->createUser($user);
-                $this->redirect("index.php?route=showUser&user_id=" . $user->getId());
+            if(!empty(trim($name)) && !empty(trim($genre)) && !empty(trim($createdAt))) {
+                $artist = new Artist($name, $genre, $bio, Datetime::createFromFormat('d/m/Y', $createdAt));
+                $this->arm->createArtist($artist);
+                $this->redirect("index.php?route=showArtist&artist_id=" . $artist->getId());
             }
             else{
-                $_SESSION["error"] = "Champs manquants";
-                $this -> renderAdmin("user/createUser", $_SESSION["error"]);
+                $_SESSION["error"] = "Champs manquants ou invalides";
+                $this -> renderAdmin("album/createAlbum", $_SESSION["error"]);
             }
         }
         else{
             $_SESSION["error"] = "Champs manquants";
-            $this -> renderAdmin("user/createUser", $_SESSION["error"]);
+            $this -> renderAdmin("album/createAlbum", $_SESSION["error"]);
         }
     }
 
     public function update(int $id) : void
     {
-        $user = $this -> um -> findone($id);
-        $this -> renderAdmin("user/updateUser", ["user" => $user]);
+        $artist = $this -> arm -> findone($id);
+        $this -> renderAdmin("artist/updateArtist", ["artist" => $artist]);
     }
 
     public function checkUpdate(int $id) : void
     {
-        if(isset($_POST['password'], $_POST['checkPassword'])){
-            $password = $_POST['password'];
-            $checkPassword = $_POST['checkPassword'];
-            $regexPassword = '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/';
-            if(!empty(trim($password) && !empty(trim($checkPassword)))){
-                if($password === $checkPassword && preg_match($regexPassword, $password)){
-                    $user = $this -> um -> findone($id);
-                    if($user!= NULL){
-                        $hashPassword = password_hash($password, PASSWORD_BCRYPT);
-                        $user->setPassword($hashPassword);
-                        unset($_SESSION["error"]);
-                        $this->redirect("index.php?route=showUser&user_id=" . $user->getId());
-                    }
-                    else{
-                        $_SESSION["error"] = "Utilisateur introuvable";
-                        $this -> redirect("index.php?route=updateUser&user_id=" . $id);
-                    }
-                }
-                else{
-                    $_SESSION["error"] = "Les mots de passe ne correspondent pas";
-                    $this -> redirect("index.php?route=updateUser&user_id=" . $id);
-                }
+        if(isset($_POST['name'], $_POST['genre'], $_POST['createdAt'])) {
+            $name = htmlspecialchars($_POST['name']);
+            $genre = htmlspecialchars($_POST['genre']);
+            $createdAt= htmlspecialchars($_POST['createdAt']);
+            $bio = htmlspecialchars($_POST['bio']);
+
+            if(!empty(trim($name)) && !empty(trim($genre)) && !empty(trim($createdAt))) {
+                $artist = New Artist($name, $genre, $bio, DateTime::createFromFormat('d/m/Y', $createdAt) );
+                $artist->setId($id);
+                $this->arm->updateArtist($artist);
+                unset($_SESSION["error"]);
+                $this->redirect("index.php?route=showArtist&artist_id=" . $artist->getId());
             }
             else{
-                $_SESSION["error"] = "Champs manquants";
-                $this -> redirect("index.php?route=updateUser&user_id=" . $id);
-            }
-        }
-        else if(isset($_POST['username'], $_POST['email'])){
-            $username = $_POST['username'];
-            $email = $_POST['email'];
-            $bio = $_POST['bio'];
-            $badges = $_POST['badges'];
-            $regexEmail = '/^[A-Za-z0-9._%+-]+@[A-Za-z0-9._%+-]+\.[A-Za-z]{2,}$/';
-            if(preg_match($regexEmail, $email)){
-                if (!empty(trim($username)) && !empty(trim($email))){
-                    $user = $this->um->findone($id);
-                    $newUser = new User($username, $email, $user->getPassword(), $bio, $badges);
-                    $newUser->setId($id);
-                    $this->um->updateUser($newUser);
-                    unset($_SESSION["error"]);
-                    $this->redirect("index.php?route=showUser&user_id=" . $newUser->getId());
-                }
-                else{
-                    $_SESSION["error"] = "Champs manquants";
-                    $this -> redirect("index.php?route=updateUser&user_id=" . $id);
-                }
-            }
-            else{
-                $_SESSION["error"] = "Adresse email invalide";
-                $this -> redirect("index.php?route=updateUser&user_id=" . $id);
+                $_SESSION["error"] = "Champs manquants ou invalides";
             }
         }
         else{
             $_SESSION["error"] = "Champs manquants";
-            $this -> redirect("index.php?route=updateUser&user_id=" . $id);
         }
     }
     public function delete(int $id) : void
     {
-        $this -> um -> deleteUser($id);
-        $this -> redirect("index.php?route=listUsers");
+        $this -> arm -> deleteArtist($id);
+        $this -> redirect("index.php?route=listArtist");
     }
 }

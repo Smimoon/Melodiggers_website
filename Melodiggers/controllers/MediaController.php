@@ -3,30 +3,31 @@
 namespace controllers;
 
 use controllers\AbstractController;
-use managers\UserManager;
+use managers\MediaManager;
 
 class MediaController extends AbstractController
 {
+    private MediaManager $mm;
     public function __construct()
     {
-        $this-> um = new UserManager();
+        $this-> mm = new MediaManager();
     }
 
     public function list() : void
     {
-        $data = $this->um->findAll();
-        $this -> renderAdmin("user/listUser.phtml", $data);
+        $data = $this->mm->findAll();
+        $this -> renderAdmin("media/listMedia.phtml", $data);
     }
 
     public function show(int $id) : void
     {
-        $data = $this->um->findOne($id);
-        $this -> renderAdmin("user/showUser.phtml", $data);
+        $data = $this->mm->findOne($id);
+        $this -> renderAdmin("media/showMedia.phtml", $data);
     }
 
     public function create() : void
     {
-        $this->renderAdmin("user/createUser.phtml", []);
+        $this->renderAdmin("media/createMedia.phtml", []);
     }
 
     public function checkCreate() : void
@@ -125,7 +126,7 @@ class MediaController extends AbstractController
     }
     public function delete(int $id) : void
     {
-        $this -> um -> deleteUser($id);
-        $this -> redirect("index.php?route=listUsers");
+        $this -> mm -> deleteMedia($id);
+        $this -> redirect("index.php?route=listMedia");
     }
 }
