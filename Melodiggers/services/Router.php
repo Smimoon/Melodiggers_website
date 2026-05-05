@@ -1,8 +1,14 @@
 <?php
-    class Router
+
+use controllers\UserController;
+
+class Router
     {
         public function __construct()
         {
+            $this->uc = new UserController();
+
+
 
         }
 

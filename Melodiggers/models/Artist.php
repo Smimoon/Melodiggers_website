@@ -6,7 +6,7 @@ use DateTime;
 
 class Artist
 {
-    public function __construct(private string $name, private string $genre, private DateTime $activePeriod = new DateTime(), private ?string $bio, private ?int $id=null)
+    public function __construct(private string $name, private string $genre, private DateTime $created_at = new DateTime(), private ?string $bio, private ?int $id=null)
     {
 
     }
@@ -31,14 +31,14 @@ class Artist
         $this->genre = $genre;
     }
 
-    public function getActivePeriod(): DateTime
+    public function getCreatedAt(): DateTime
     {
-        return $this->activePeriod;
+        return $this->createdAt;
     }
 
-    public function setActivePeriod(DateTime $activePeriod): void
+    public function setCreatedAt(DateTime $createdAt): void
     {
-        $this->activePeriod = $activePeriod;
+        $this->createdAt = $createdAt;
     }
 
     public function getBio(): ?string

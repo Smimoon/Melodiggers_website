@@ -5,7 +5,7 @@ namespace controllers;
 use controllers\AbstractController;
 use managers\UserManager;
 
-class UserController extends AbstractController
+class ArtistController extends AbstractController
 {
     public function __construct()
     {
@@ -40,7 +40,7 @@ class UserController extends AbstractController
             $regexEmail = '/^[A-Za-z0-9._%+-]+@[A-Za-z0-9._%+-]+\.[A-Za-z]{2,}$/';
             $regexPassword = '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/';
 
-            if(preg_match($regexEmail, $email) && preg_match($regexPassword, $password) && !empty(trim($username) && !empty(trim($password)))) {
+            if(!preg_match($regexEmail, $email) && !preg_match($regexPassword, $password) && !empty(trim($username) && !empty(trim($password)))) {
                 $hashPassword = password_hash($password, PASSWORD_BCRYPT);
                 $user = new User($username, $email, $hashPassword, $bio, $badges);
                 $this->um->createUser($user);
