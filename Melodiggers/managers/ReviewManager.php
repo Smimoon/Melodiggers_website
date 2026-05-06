@@ -30,6 +30,23 @@ class ReviewManager extends AbstractManager
         return false;
     }
 
+    public function updateReview(Review $review): bool
+    {
+        $query = $this->db->prepare("UPDATE reviews SET user = :user, album = :album, title = :title,  content = :content, created_at = created_at WHERE id = :id");
+        $parameters = [
+            ":user" => $review->getUser()->getId(),
+            ":album" => $review->getAlbum()->getId(),
+            ":title" => $review->getTitle(),
+            ":content" => $review->getContent(),
+            ":created_at" => $review->getCreatedAt()
+        ];
+        $query->execute($parameters);
+        if($this->db->lastInsertId()){
+            return true;
+        }
+        return false;
+    }
+
     public function findOne(int $id): ?Review
     {
         $query = $this->db->prepare("SELECT * FROM reviews WHERE id = :id");

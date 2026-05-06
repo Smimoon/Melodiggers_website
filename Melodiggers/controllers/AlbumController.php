@@ -78,10 +78,12 @@ class AlbumController extends AbstractController
             }
             else{
                 $_SESSION["error"] = "Champs manquants ou invalides";
+                $this->redirect("index.php?route=updateAlbum&album_id=".$id);
             }
         }
         else{
             $_SESSION["error"] = "Champs manquants";
+            $this->redirect("index.php?route=updateAlbum&album_id=".$id);
         }
     }
 

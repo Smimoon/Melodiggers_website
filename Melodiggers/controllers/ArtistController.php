@@ -48,12 +48,12 @@ class ArtistController extends AbstractController
             }
             else{
                 $_SESSION["error"] = "Champs manquants ou invalides";
-                $this -> renderAdmin("album/createAlbum", $_SESSION["error"]);
+                $this -> renderAdmin("artist/createArtist", $_SESSION["error"]);
             }
         }
         else{
             $_SESSION["error"] = "Champs manquants";
-            $this -> renderAdmin("album/createAlbum", $_SESSION["error"]);
+            $this -> renderAdmin("artist/createArtist", $_SESSION["error"]);
         }
     }
 
@@ -80,10 +80,12 @@ class ArtistController extends AbstractController
             }
             else{
                 $_SESSION["error"] = "Champs manquants ou invalides";
+                $this->redirect("index.php?route=updateArtist&artist_id=".$id);
             }
         }
         else{
             $_SESSION["error"] = "Champs manquants";
+            $this->redirect("index.php?route=updateArtist&artist_id=".$id);
         }
     }
     public function delete(int $id) : void
