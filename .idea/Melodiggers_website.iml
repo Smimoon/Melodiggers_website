@@ -4,13 +4,6 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/Melodiggers" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
-      <excludeFolder url="file://$MODULE_DIR$/Melodiggers/vendor/composer" />
-      <excludeFolder url="file://$MODULE_DIR$/Melodiggers/vendor/graham-campbell/result-type" />
-      <excludeFolder url="file://$MODULE_DIR$/Melodiggers/vendor/phpoption/phpoption" />
-      <excludeFolder url="file://$MODULE_DIR$/Melodiggers/vendor/symfony/polyfill-ctype" />
-      <excludeFolder url="file://$MODULE_DIR$/Melodiggers/vendor/symfony/polyfill-mbstring" />
-      <excludeFolder url="file://$MODULE_DIR$/Melodiggers/vendor/symfony/polyfill-php80" />
-      <excludeFolder url="file://$MODULE_DIR$/Melodiggers/vendor/vlucas/phpdotenv" />
       <excludeFolder url="file://$MODULE_DIR$/Melodiggers/vendor" />
     </content>
     <orderEntry type="inheritedJdk" />

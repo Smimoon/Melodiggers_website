@@ -94,11 +94,109 @@ class Router
                 else if ($get['route'] === 'createAlbum') {
                     $this->alc->create();
                 }
+                else if ($get['route'] === 'checkCreateAlbum') {
+                    $this->alc->checkCreate();
+                }
                 else if ($get['route'] === 'updateAlbum' && isset($get['album_id'])) {
                     $this->alc->update($get['album_id']);
                 }
+                else if ($get['route'] === 'checkUpdateAlbum' && isset($get['album_id'])) {
+                    $this->alc->checkUpdate($get['album_id']);
+                }
                 else if ($get['route'] === 'deleteAlbum' && isset($get['album_id'])) {
                     $this->alc->delete($get['album_id']);
+                }
+
+//                Router Admin Artist
+                else if ($get['route'] === 'artistList') {
+                    $this->arc->list();
+                }
+                else if ($get['route'] === 'artistDetails' && $get['artist_id']) {
+                    $this->arc->show($get['artist_id']);
+                }
+                else if ($get['route'] === 'createArtist') {
+                    $this->arc->create();
+                }
+                else if ($get['route'] === 'checkCreateArtist') {
+                    $this->arc->checkCreate();
+                }
+                else if ($get['route'] === 'updateArtist' && isset($get['artist_id'])) {
+                    $this->arc->update($get['artist_id']);
+                }
+                else if ($get['route'] === 'checkUpdateArtist' && isset($get['artist_id'])) {
+                    $this->arc->checkUpdate($get['artist_id']);
+                }
+                else if ($get['route'] === 'deleteArtist' && isset($get['artist_id'])) {
+                    $this->alc->delete($get['artist_id']);
+                }
+
+//                Router Admin Media
+                else if ($get['route'] === 'mediaList') {
+                    $this->mc->list();
+                }
+                else if ($get['route'] === 'mediaDetails' && $get['media_id']) {
+                    $this->mc->show($get['media_id']);
+                }
+                else if ($get['route'] === 'createMedia') {
+                    $this->mc->create();
+                }
+                else if ($get['route'] === 'checkCreateMedia') {
+                    $this->mc->checkCreate();
+                }
+                else if ($get['route'] === 'updateMedia' && isset($get['media_id'])) {
+                    $this->mc->update($get['media_id']);
+                }
+                else if ($get['route'] === 'checkUpdateMedia' && isset($get['media_id'])) {
+                    $this->mc->checkUpdate($get['media_id']);
+                }
+                else if ($get['route'] === 'deleteMedia' && isset($get['media_id'])) {
+                    $this->mc->delete($get['media_id']);
+                }
+
+//                Router Admin Review
+                else if ($get['route'] === 'reviewList') {
+                    $this->rc->list();
+                }
+                else if ($get['route'] === 'reviewDetails' && $get['review_id']) {
+                    $this->rc->show($get['review_id']);
+                }
+                else if ($get['route'] === 'createReview') {
+                    $this->rc->create();
+                }
+                else if ($get['route'] === 'checkCreateReview') {
+                    $this->rc->checkCreate();
+                }
+                else if ($get['route'] === 'updateReview' && isset($get['review_id'])) {
+                    $this->rc->update($get['review_id']);
+                }
+                else if ($get['route'] === 'checkUpdateReview' && isset($get['review_id'])) {
+                    $this->rc->checkUpdate($get['review_id']);
+                }
+                else if ($get['route'] === 'deleteReview' && isset($get['review_id'])) {
+                    $this->rc->delete($get['review_id']);
+                }
+
+//                Router Admin Score
+                else if ($get['route'] === 'scoreList') {
+                    $this->sc->list();
+                }
+                else if ($get['route'] === 'scoreDetails' && $get['score_id']) {
+                    $this->sc->show($get['score_id']);
+                }
+                else if ($get['route'] === 'createScore') {
+                    $this->sc->create();
+                }
+                else if ($get['route'] === 'checkCreateScore') {
+                    $this->sc->checkCreate();
+                }
+                else if ($get['route'] === 'updateScore' && isset($get['score_id'])) {
+                    $this->sc->update($get['score_id']);
+                }
+                else if ($get['route'] === 'checkUpdateScore' && isset($get['score_id'])) {
+                    $this->sc->checkUpdate($get['score_id']);
+                }
+                else if ($get['route'] === 'deleteScore' && isset($get['score_id'])) {
+                    $this->sc->delete($get['score_id']);
                 }
             }
         }

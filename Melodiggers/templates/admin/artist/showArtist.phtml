@@ -1,0 +1,12 @@
+<?php
+$item = $data["artist"];
+?>
+<section>
+    <h1><?= $item->getName() ?></h1>
+    <h2><?= $item->getGenre() ?></h2>
+    <p><?= $item->getCreatedAt() ?></p>
+    <p><?= $item->getBio() ?></p>
+    <button><a href="?route=updateArtist&artist_id=<?=$item->getId()?>">Modifier</a></button>
+    <button><a href="?route=deleteArtist&artist_id=<?=$item->getId()?>">Supprimer</a></button>
+</section>
+
