@@ -18,18 +18,18 @@ class ScoreController extends AbstractController
     public function list() : void
     {
         $data = $this->sm->findAll();
-        $this -> renderAdmin("score/listScore.phtml", $data);
+        $this -> renderAdmin("score/listScore", $data);
     }
 
     public function show(int $id) : void
     {
         $data = $this->sm->findOne($id);
-        $this -> renderAdmin("score/showScore.phtml", $data);
+        $this -> renderAdmin("score/showScore", $data);
     }
 
     public function create() : void
     {
-        $this->renderAdmin("score/createScore.phtml", []);
+        $this->renderAdmin("score/createScore", []);
     }
 
     public function checkCreate() : void

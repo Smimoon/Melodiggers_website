@@ -1,3 +1,15 @@
 <?php
+    $item=$data["artist"]
 ?>
 
+<form method="post" action ="?route=checkUpdateArtist&artist_id=<?= $item->getId() ?>">
+    <label for="name">Nom de l'artiste/du groupe : </label>
+    <input type="text" name="name" id="name" value="<?= $item->getName() ?>">
+    <label for="genre">Style de musique : </label>
+    <input type="text" name="genre" id="genre" value="<?= $item->getGenre() ?>">
+    <label for="createdAt">Date de formation : </label>
+    <input type="number" name="createdAt" id="createdAt" value="<?= $item->getCreatedAt()->format('Y') ?>">
+    <label for="bio">Biographie : </label>
+    <textarea name="bio" id="bio" rows="5" cols="30"><?= $item->getBio() ?></textarea>
+    <button type="submit">Modifier</button>
+</form>

@@ -1,13 +1,15 @@
-<?php
-?>
+<?php if($_SESSION["error"]){ ?>
+        <p><?= $_SESSION["error"]?></p>
+<?php }?>
+
 
 <form method="post" action ="?route=checkCreateArtist">
     <label for="name">Nom de l'artiste/du groupe : </label>
     <input type="text" name="name" id="name" required>
     <label for="genre">Style de musique : </label>
     <input type="text" name="genre" id="genre" required>
-    <label for="createdAt">Date de formation : </label>
-    <input type="date" name="createdAt" id="createdAt" required>
+    <label for="createdAt">Année de formation : </label>
+    <input type="number" name="createdAt" id="createdAt" required>
     <label for="bio">Biographie : </label>
     <textarea name="bio" id="bio" rows="5" cols="30"></textarea>
     <button type="submit">Ajouter</button>

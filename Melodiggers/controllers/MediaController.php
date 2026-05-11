@@ -18,18 +18,18 @@ class MediaController extends AbstractController
     public function list() : void
     {
         $data = $this->mm->findAll();
-        $this -> renderAdmin("media/listMedia.phtml", $data);
+        $this -> renderAdmin("media/listMedia", $data);
     }
 
     public function show(int $id) : void
     {
         $data = $this->mm->findOne($id);
-        $this -> renderAdmin("media/showMedia.phtml", $data);
+        $this -> renderAdmin("media/showMedia", $data);
     }
 
     public function create() : void
     {
-        $this->renderAdmin("media/createMedia.phtml", []);
+        $this->renderAdmin("media/createMedia", []);
     }
 
     public function checkCreate() : void

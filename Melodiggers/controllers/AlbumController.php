@@ -17,18 +17,18 @@ class AlbumController extends AbstractController
     public function list() : void
     {
         $data = $this->am->findAll();
-        $this -> renderAdmin("album/listAlbum.phtml", $data);
+        $this -> renderAdmin("album/listAlbum", $data);
     }
 
     public function show(int $id) : void
     {
         $data = $this->am->findOne($id);
-        $this -> renderAdmin("album/showAlbum.phtml", $data);
+        $this -> renderAdmin("album/showAlbum", $data);
     }
 
     public function create() : void
     {
-        $this->renderAdmin("album/createAlbum.phtml", []);
+        $this->renderAdmin("album/createAlbum", []);
     }
 
     public function checkCreate() : void

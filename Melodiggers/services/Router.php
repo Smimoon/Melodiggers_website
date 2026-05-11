@@ -111,7 +111,7 @@ class Router
                 else if ($get['route'] === 'artistList') {
                     $this->arc->list();
                 }
-                else if ($get['route'] === 'artistDetails' && $get['artist_id']) {
+                else if ($get['route'] === 'showArtist' && $get['artist_id']) {
                     $this->arc->show($get['artist_id']);
                 }
                 else if ($get['route'] === 'createArtist') {
@@ -127,7 +127,7 @@ class Router
                     $this->arc->checkUpdate($get['artist_id']);
                 }
                 else if ($get['route'] === 'deleteArtist' && isset($get['artist_id'])) {
-                    $this->alc->delete($get['artist_id']);
+                    $this->arc->delete($get['artist_id']);
                 }
 
 //                Router Admin Media
@@ -197,6 +197,9 @@ class Router
                 }
                 else if ($get['route'] === 'deleteScore' && isset($get['score_id'])) {
                     $this->sc->delete($get['score_id']);
+                }
+                else{
+                    echo "Duper";
                 }
             }
         }

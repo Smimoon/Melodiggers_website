@@ -33,12 +33,12 @@ class Artist
 
     public function getCreatedAt(): DateTime
     {
-        return $this->createdAt;
+        return $this->created_at;
     }
 
-    public function setCreatedAt(DateTime $createdAt): void
+    public function setCreatedAt(DateTime $created_at): void
     {
-        $this->createdAt = $createdAt;
+        $this->created_at = $created_at;
     }
 
     public function getBio(): ?string

@@ -19,18 +19,18 @@ class ArtistController extends AbstractController
     public function list() : void
     {
         $data = $this->arm->findAll();
-        $this -> renderAdmin("artist/listArtist.phtml", $data);
+        $this -> renderAdmin("artist/listArtist", $data);
     }
 
     public function show(int $id) : void
     {
-        $data = $this->arm->findOne($id);
-        $this -> renderAdmin("artist/showArtist.phtml", $data);
+        $data = ["artist"=>$this->arm->findOne($id)];
+        $this -> renderAdmin("artist/showArtist", $data);
     }
 
     public function create() : void
     {
-        $this->renderAdmin("artist/createArtist.phtml", []);
+        $this->renderAdmin("artist/createArtist", []);
     }
 
     public function checkCreate() : void
@@ -39,12 +39,13 @@ class ArtistController extends AbstractController
             $name = htmlspecialchars($_POST['name']);
             $genre = htmlspecialchars($_POST['genre']);
             $bio = htmlspecialchars($_POST['bio']);
-            $createdAt = htmlspecialchars($_POST['createdAt']);
+            $createdAt = $_POST['createdAt'];
+
 
             if(!empty(trim($name)) && !empty(trim($genre)) && !empty(trim($createdAt))) {
-                $artist = new Artist($name, $genre, $bio, Datetime::createFromFormat('d/m/Y', $createdAt));
+                $artist = new Artist($name, $genre, $bio, Datetime::createFromFormat('Y', $createdAt));
                 $this->arm->createArtist($artist);
-                $this->redirect("index.php?route=showArtist&artist_id=" . $artist->getId());
+                $this->redirect("index.php?route=showArtist&artist_id=".$artist->getId());
             }
             else{
                 $_SESSION["error"] = "Champs manquants ou invalides";
@@ -72,11 +73,11 @@ class ArtistController extends AbstractController
             $bio = htmlspecialchars($_POST['bio']);
 
             if(!empty(trim($name)) && !empty(trim($genre)) && !empty(trim($createdAt))) {
-                $artist = New Artist($name, $genre, $bio, DateTime::createFromFormat('d/m/Y', $createdAt) );
+                $artist = New Artist($name, $genre, $bio, DateTime::createFromFormat('Y', $createdAt) );
                 $artist->setId($id);
                 $this->arm->updateArtist($artist);
                 unset($_SESSION["error"]);
-                $this->redirect("index.php?route=showArtist&artist_id=" . $artist->getId());
+                $this->redirect("index.php?route=showArtist&artist_id=".$artist->getId());
             }
             else{
                 $_SESSION["error"] = "Champs manquants ou invalides";
@@ -91,6 +92,6 @@ class ArtistController extends AbstractController
     public function delete(int $id) : void
     {
         $this -> arm -> deleteArtist($id);
-        $this -> redirect("index.php?route=listArtist");
+        $this -> redirect("index.php?route=artistList");
     }
 }

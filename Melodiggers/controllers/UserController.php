@@ -16,18 +16,18 @@ class UserController extends AbstractController
     public function list() : void
     {
         $data = $this->um->findAll();
-        $this -> renderAdmin("user/listUser.phtml", $data);
+        $this -> renderAdmin("user/listUser", $data);
     }
 
     public function show(int $id) : void
     {
         $data = $this->um->findOne($id);
-        $this -> renderAdmin("user/showUser.phtml", $data);
+        $this -> renderAdmin("user/showUser", $data);
     }
 
     public function create() : void
     {
-        $this->renderAdmin("user/createUser.phtml", []);
+        $this->renderAdmin("user/createUser", []);
     }
 
     public function checkCreate() : void

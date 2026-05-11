@@ -18,18 +18,18 @@ class ReviewController extends AbstractController
     public function list() : void
     {
         $data = $this->rm->findAll();
-        $this -> renderAdmin("review/listReview.phtml", $data);
+        $this -> renderAdmin("review/listReview", $data);
     }
 
     public function show(int $id) : void
     {
         $data = $this->rm->findOne($id);
-        $this -> renderAdmin("review/showReview.phtml", $data);
+        $this -> renderAdmin("review/showReview", $data);
     }
 
     public function create() : void
     {
-        $this->renderAdmin("review/createReview.phtml", []);
+        $this->renderAdmin("review/createReview", []);
     }
 
     public function checkCreate() : void

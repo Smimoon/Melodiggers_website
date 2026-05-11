@@ -7,19 +7,21 @@
     </ul>
 </nav>
 
-<?php foreach($data as $item){ ?>
+
 <section>
     <h1>Liste des artistes</h1>
-    <ul>
-        <li>
-            <h2><?=$item->getName()?></h2>
-            <h3><?=$item->getGenre()?></h3>
-            <p><?=$item->getCreatedAt()?></p>
-            <button><a href="?route=showArtist&artist_id=<?=$item->getId()?>">Voir Plus</a></button>
-            <button><a href="?route=updateArtist&artist_id=<?=$item->getId()?>">Modifier</a></button>
-            <button><a href="?route=deleteArtist&artist_id=<?=$item->getId()?>">Supprimer</a></button>
-        </li>
-    </ul>
+    <?php foreach($data as $item){ ?>
+         <ul>
+             <li>
+                <h2><?=$item->getName()?></h2>
+                <h3><?=$item->getGenre()?></h3>
+                <p><?=$item->getCreatedAt()->format('Y')?></p>
+                <button><a href="?route=showArtist&artist_id=<?=$item->getId()?>">Voir Plus</a></button>
+                <button><a href="?route=updateArtist&artist_id=<?=$item->getId()?>">Modifier</a></button>
+                <button><a href="?route=deleteArtist&artist_id=<?=$item->getId()?>">Supprimer</a></button>
+            </li>
+        </ul>
+    <?php }?>
 </section>
-<?php }?>
+
 
