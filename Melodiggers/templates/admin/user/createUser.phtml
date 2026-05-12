@@ -1,1 +1,42 @@
-<?php
+<?php if($_SESSION["error"]){ ?>
+    <p><?= $_SESSION["error"]?></p>
+<?php }?>
+
+
+<form method="post" action ="?route=checkCreateUser">
+    <label for="username">Nom d'utilisateur : </label>
+    <input type="text" name="username" id="username" required>
+    <label for="email">Adresse Mail : </label>
+    <input type="email" name="email" id="email" required>
+    <label for="password">Mot de passe : </label>
+    <input type="password" name="password" id="password" required>
+    <label for="checkPassword">Confirmer mot de passe : </label>
+    <input type="password" name="checkPassword" id="checkPassword" required>
+    <label for="bio">Biographie : </label>
+    <textarea name="bio" id="bio" rows="5" cols="30"></textarea>
+    <fieldset>
+        <legend>Sélectionnez jusqu'à 3 styles de prédilection</legend>
+        <div>
+            <input type="checkbox" id="hxc" name="badges" value="hxc">
+            <label for="hxc">Hardcore</label>
+        </div>
+        <div>
+            <input type="checkbox" id="met" name="badges" value="met">
+            <label for="met">Metal</label>
+        </div>
+        <div>
+            <input type="checkbox" id="emo" name="badges" value="emo">
+            <label for="emo">Emo</label>
+        </div>
+        <div>
+            <input type="checkbox" id="scr" name="badges" value="scr">
+            <label for="scr">Screamo</label>
+        </div>
+        <div>
+            <input type="checkbox" id="ind" name="badges" value="ind">
+            <label for="ind">Indie</label>
+        </div>
+    </fieldset>
+
+    <button type="submit">Créer</button>
+</form>

@@ -1,1 +1,12 @@
 <?php
+    $item=$data['user'];
+?>
+
+<section>
+    <h1><?= $item->getUsername() ?></h1>
+    <h2><?= $item->getEmail() ?></h2>
+    <p><?= $item->getBadges()?></p>
+    <p><?= $item->getBio() ?></p>
+    <button><a href="?route=updateUser&user_id=<?=$item->getId()?>">Modifier</a></button>
+    <button><a href="?route=deleteUser&user_id=<?=$item->getId()?>">Supprimer</a></button>
+</section>

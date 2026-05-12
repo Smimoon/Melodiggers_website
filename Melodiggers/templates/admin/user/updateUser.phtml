@@ -1,1 +1,40 @@
 <?php
+    $item=$data["user"];
+?>
+<form method="post" action ="?route=checkUpdateUser">
+    <label for="username">Nom d'utilisateur : </label>
+    <input type="text" name="username" id="username" value="<?= $item->getUsername(); ?>" required/>
+    <label for="email">Adresse Mail : </label>
+    <input type="email" name="email" id="email" value="<?= $item->getEmail(); ?>" required/>
+    <label for="password">Mot de passe : </label>
+    <input type="password" name="password" id="password" value="<?= $item->getPassword()?>" required>
+    <label for="checkPassword">Confirmer mot de passe : </label>
+    <input type="password" name="checkPassword" id="checkPassword" value="<?= $item->getPassword()?> required>
+    <label for="bio">Biographie : </label>
+    <textarea name="bio" id="bio" rows="5" cols="30"><?= $item->getBio()?></textarea>
+    <fieldset>
+        <legend>Sélectionnez jusqu'à 3 styles de prédilection</legend>
+        <div>
+            <input type="checkbox" id="hxc" name="badges" value="hxc">
+            <label for="hxc">Hardcore</label>
+        </div>
+        <div>
+            <input type="checkbox" id="met" name="badges" value="met">
+            <label for="met">Metal</label>
+        </div>
+        <div>
+            <input type="checkbox" id="emo" name="badges" value="emo">
+            <label for="emo">Emo</label>
+        </div>
+        <div>
+            <input type="checkbox" id="scr" name="badges" value="scr">
+            <label for="scr">Screamo</label>
+        </div>
+        <div>
+            <input type="checkbox" id="ind" name="badges" value="ind">
+            <label for="ind">Indie</label>
+        </div>
+    </fieldset>
+
+    <button type="submit">Enregistrer les modifications</button>
+</form>

@@ -49,7 +49,7 @@ class ArtistManager extends AbstractManager
 
     public function findAll() : array
     {
-        $query = $this->db->prepare("SELECT * FROM artists ORDER BY id ASC");
+        $query = $this->db->prepare("SELECT * FROM artists ORDER BY name ASC");
         $query->execute();
         $results = $query->fetchAll(PDO::FETCH_ASSOC);
         $artists = [];

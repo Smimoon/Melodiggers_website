@@ -88,7 +88,7 @@ class Router
                 else if ($get['route'] === 'albumList') {
                     $this->alc->list();
                 }
-                else if ($get['route'] === 'albumDetails' && $get['album_id']) {
+                else if ($get['route'] === 'showAlbum' && $get['album_id']) {
                     $this->alc->show($get['album_id']);
                 }
                 else if ($get['route'] === 'createAlbum') {
@@ -134,7 +134,7 @@ class Router
                 else if ($get['route'] === 'mediaList') {
                     $this->mc->list();
                 }
-                else if ($get['route'] === 'mediaDetails' && $get['media_id']) {
+                else if ($get['route'] === 'showMedia' && $get['media_id']) {
                     $this->mc->show($get['media_id']);
                 }
                 else if ($get['route'] === 'createMedia') {
@@ -157,7 +157,7 @@ class Router
                 else if ($get['route'] === 'reviewList') {
                     $this->rc->list();
                 }
-                else if ($get['route'] === 'reviewDetails' && $get['review_id']) {
+                else if ($get['route'] === 'showReview' && $get['review_id']) {
                     $this->rc->show($get['review_id']);
                 }
                 else if ($get['route'] === 'createReview') {
@@ -180,7 +180,7 @@ class Router
                 else if ($get['route'] === 'scoreList') {
                     $this->sc->list();
                 }
-                else if ($get['route'] === 'scoreDetails' && $get['score_id']) {
+                else if ($get['route'] === 'showScore' && $get['score_id']) {
                     $this->sc->show($get['score_id']);
                 }
                 else if ($get['route'] === 'createScore') {
@@ -201,6 +201,9 @@ class Router
                 else{
                     echo "Duper";
                 }
+            }
+            else{
+                $this->arc->list();
             }
         }
     }

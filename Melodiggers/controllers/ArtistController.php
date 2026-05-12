@@ -45,16 +45,17 @@ class ArtistController extends AbstractController
             if(!empty(trim($name)) && !empty(trim($genre)) && !empty(trim($createdAt))) {
                 $artist = new Artist($name, $genre, $bio, Datetime::createFromFormat('Y', $createdAt));
                 $this->arm->createArtist($artist);
+                unset($_SESSION["error"]);
                 $this->redirect("index.php?route=showArtist&artist_id=".$artist->getId());
             }
             else{
                 $_SESSION["error"] = "Champs manquants ou invalides";
-                $this -> renderAdmin("artist/createArtist", $_SESSION["error"]);
+                $this -> renderAdmin("artist/createArtist", $_SESSION);
             }
         }
         else{
             $_SESSION["error"] = "Champs manquants";
-            $this -> renderAdmin("artist/createArtist", $_SESSION["error"]);
+            $this -> renderAdmin("artist/createArtist", $_SESSION);
         }
     }
 

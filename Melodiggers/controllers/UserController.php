@@ -4,6 +4,7 @@ namespace controllers;
 
 use controllers\AbstractController;
 use managers\UserManager;
+use models\User;
 
 class UserController extends AbstractController
 {
@@ -21,7 +22,7 @@ class UserController extends AbstractController
 
     public function show(int $id) : void
     {
-        $data = $this->um->findOne($id);
+        $data = ['user'=>$this->um->findOne($id)];
         $this -> renderAdmin("user/showUser", $data);
     }
 
@@ -32,32 +33,47 @@ class UserController extends AbstractController
 
     public function checkCreate() : void
     {
-        if(isset($_POST['username'], $_POST['email'], $_POST['password'])) {
+        if (isset($_POST['username'], $_POST['email'], $_POST['password'], $_POST['checkPassword'])) {
             $username = $_POST['username'];
             $email = $_POST['email'];
             $password = $_POST['password'];
+            $checkPassword= $_POST['checkPassword'];
             $bio = $_POST['bio'];
             $badges = $_POST['badges'];
             $regexEmail = '/^[A-Za-z0-9._%+-]+@[A-Za-z0-9._%+-]+\.[A-Za-z]{2,}$/';
-            $regexPassword = '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/';
+            $regexPassword = '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*.-]).{8,}$/';
 
-            if(preg_match($regexEmail, $email) && preg_match($regexPassword, $password) && !empty(trim($username) && !empty(trim($password)))) {
-                $hashPassword = password_hash($password, PASSWORD_BCRYPT);
-                $user = new User($username, $email, $hashPassword, $bio, $badges);
-                $this->um->createUser($user);
-                $this->redirect("index.php?route=showUser&user_id=" . $user->getId());
+            if (preg_match($regexEmail, $email)) {
+                if (preg_match($regexPassword, $password)) {
+                    if($checkPassword == $password){
+                        if (!empty(trim($username) && !empty(trim($password)))) {
+                            $hashPassword = password_hash($password, PASSWORD_BCRYPT);
+                            $user = new User($username, $email, $hashPassword, $bio, $badges);
+                            $this->um->createUser($user);
+                            unset($_SESSION["error"]);
+                            $this->redirect("index.php?route=showUser&user_id=".$user->getId());
+                        }
+                        else {
+                            $_SESSION['error'] = "Champs manquants";
+                            $this->renderAdmin("user/createUser", $_SESSION);
+                        }
+                    }
+                    else{
+                        $_SESSION['error'] = "Les mots de passes ne correspondent pas";
+                        $this->renderAdmin("user/createUser", $_SESSION);
+                    }
+                }
+                else {
+                    $_SESSION['error'] = "Mot de passe invalide";
+                    $this->renderAdmin("user/createUser", $_SESSION);
+                }
             }
             else{
-                $_SESSION["error"] = "Champs manquants";
-                $this -> renderAdmin("user/createUser", $_SESSION["error"]);
+                    $_SESSION["error"] = "Adresse mail invalide";
+                    $this->renderAdmin("user/createUser", $_SESSION);
             }
         }
-        else{
-            $_SESSION["error"] = "Champs manquants";
-            $this -> renderAdmin("user/createUser", $_SESSION["error"]);
-        }
     }
-
     public function update(int $id) : void
     {
         $user = $this -> um -> findone($id);
@@ -77,21 +93,21 @@ class UserController extends AbstractController
                         $hashPassword = password_hash($password, PASSWORD_BCRYPT);
                         $user->setPassword($hashPassword);
                         unset($_SESSION["error"]);
-                        $this->redirect("index.php?route=showUser&user_id=" . $user->getId());
+                        $this->redirect("index.php?route=showUser&user_id=".$user->getId());
                     }
                     else{
                         $_SESSION["error"] = "Utilisateur introuvable";
-                        $this -> redirect("index.php?route=updateUser&user_id=" . $id);
+                        $this -> redirect("index.php?route=updateUser&user_id=".$id);
                     }
                 }
                 else{
                     $_SESSION["error"] = "Les mots de passe ne correspondent pas";
-                    $this -> redirect("index.php?route=updateUser&user_id=" . $id);
+                    $this -> redirect("index.php?route=updateUser&user_id=".$id);
                 }
             }
             else{
                 $_SESSION["error"] = "Champs manquants";
-                $this -> redirect("index.php?route=updateUser&user_id=" . $id);
+                $this -> redirect("index.php?route=updateUser&user_id=".$id);
             }
         }
         else if(isset($_POST['username'], $_POST['email'])){
@@ -107,26 +123,26 @@ class UserController extends AbstractController
                     $newUser->setId($id);
                     $this->um->updateUser($newUser);
                     unset($_SESSION["error"]);
-                    $this->redirect("index.php?route=showUser&user_id=" . $newUser->getId());
+                    $this->redirect("index.php?route=showUser&user_id=".$newUser->getId());
                 }
                 else{
                     $_SESSION["error"] = "Champs manquants";
-                    $this -> redirect("index.php?route=updateUser&user_id=" . $id);
+                    $this -> redirect("index.php?route=updateUser&user_id=".$id);
                 }
             }
             else{
                 $_SESSION["error"] = "Adresse email invalide";
-                $this -> redirect("index.php?route=updateUser&user_id=" . $id);
+                $this -> redirect("index.php?route=updateUser&user_id=".$id);
             }
         }
         else{
             $_SESSION["error"] = "Champs manquants";
-            $this -> redirect("index.php?route=updateUser&user_id=" . $id);
+            $this -> redirect("index.php?route=updateUser&user_id=".$id);
         }
     }
     public function delete(int $id) : void
     {
         $this -> um -> deleteUser($id);
-        $this -> redirect("index.php?route=listUsers");
+        $this -> redirect("index.php?route=userList");
     }
 }

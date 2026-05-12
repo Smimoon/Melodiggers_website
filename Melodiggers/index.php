@@ -6,3 +6,4 @@
     $dotenv->load();
     $router = New Router();
     $router->handleRequest($_GET);
+

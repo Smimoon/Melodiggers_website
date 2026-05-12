@@ -1,1 +1,20 @@
 <?php
+?>
+
+<section>
+    <h1>Liste des utilisateurs</h1>
+    <p><a href="?route=createUser">Ajouter un utilisateur</a></p>
+    <?php foreach($data as $item){ ?>
+        <ul>
+            <li>
+                <h2><?=$item->getUsername()?></h2>
+                <h3><?=$item->getEmail()?></h3>
+                <p><?=$item->getBio()?></p>
+                <p><?=$item->getBadges()?></p>
+                <button><a href="?route=showUser&user_id=<?=$item->getId()?>">Voir plus</a></button>
+                <button><a href="?route=updateUser&user_id=<?=$item->getId()?>">Modifier</a></button>
+                <button><a href="?route=deleteUser&user_id=<?=$item->getId()?>">Supprimer</a></button>
+            </li>
+        </ul>
+    <?php }?>
+</section>

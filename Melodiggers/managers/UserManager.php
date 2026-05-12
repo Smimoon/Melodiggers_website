@@ -24,6 +24,8 @@ class UserManager extends AbstractManager
             "badges" => $user->getBadges()
         ];
         $query->execute($parameters);
+        $id = $this -> db -> lastInsertId();
+        $user->setId($id);
         if ($this->db->lastInsertId()) {
             return true;
         }
